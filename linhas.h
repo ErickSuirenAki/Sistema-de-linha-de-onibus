@@ -3,15 +3,18 @@
 typedef struct Linha {
     int numero;
     char companhia[50];
-    //Parada *paradas;
+    tipoParada *paradas;
     struct Linha *proxima;
 }Linha;
 
 
-int verificaAdmin(char senha[]);
-void procurarLinha(char destino[], char horario[]);
-void incluirLinha();
-void incluirParada();
-void alterarParada();
-void excluirParada();
-void excluirLinha();
+typedef struct {
+    Linha *head;
+} ListaLinhas;
+
+int verificaAdmin(char senha[]); //ok
+void criarListaLinhas(ListaLinhas *L); //ok
+int inserirInicio(ListaLinhas *L, int numero, char companhia[]); //ok
+Linha* buscarLinha(ListaLinhas *L, int numero); //ok
+int removerLinha(ListaLinhas *L, int numero); //ok
+void mostrarLinhas(ListaLinhas *L);
