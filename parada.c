@@ -10,11 +10,11 @@ ListaP* criarListaParadas(){
 
 int listaParadasVazia(ListaP *lp){
     if(lp == NULL) return 1;
-    if((*li) == NULL) return 1;
+    if((*lp) == NULL) return 1;
     return 0;
 }
 
-int inserirParadaEmPosicao(ListaParadas *lp, tipoParada p, int posicao) {
+int inserirParadaEmPosicao(ListaP * lp, tipoParada p, int posicao) {
     if(lp == NULL) return 0;
     No *no = (No*) malloc(sizeof(No));
     if(no == NULL) return 0;
