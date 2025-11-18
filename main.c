@@ -2,14 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "linhas.h"
 
-int verificaAdmin(char senha[]);
-void procurarLinha(char destino[], char horario[]);
-void incluirLinha();
-void incluirParada();
-void alterarParada();
-void excluirParada();
-void excluirLinha();
 
 int main() {
 
@@ -21,10 +15,10 @@ int main() {
 
     do {
         printf("\n===== MENU PRINCIPAL =====");
-        printf("\n1 - Procurar linha de ônibus");
-        printf("\n2 - Manutenção do programa");
+        printf("\n1 - Procurar linha de onibus");
+        printf("\n2 - Manutenaoo do programa");
         printf("\n0 - Sair");
-        printf("\nEscolha sua opção: ");
+        printf("\nEscolha sua opcao: ");
         scanf("%d", &opcaoPrincipal);
         getchar();
 
@@ -38,13 +32,13 @@ int main() {
                 printf("Digite o horário aproximado (HH:MM): ");
                 fflush(stdin);
                 gets(horario);
-                procurarLinha(destino, horario);
+                //procurarLinha(destino, horario);
             break;
 
             case 2:
                 printf("\nDigite a senha de administrador: ");
-                fgets(senhaAdmin, 30, stdin);
-                senhaAdmin[strcspn(senhaAdmin, "\n")] = 0;
+                fflush(stdin);
+                gets(senhaAdmin);
 
                 if(verificaAdmin(senhaAdmin)) {
 
@@ -56,25 +50,31 @@ int main() {
                         printf("\n4 - Excluir parada");
                         printf("\n5 - Excluir linha");
                         printf("\n0 - Voltar");
-                        printf("\nEscolha sua opção: ");
+                        printf("\nEscolha sua opcao: ");
 
                         scanf("%d", &opcaoAdmin);
                         getchar();
 
                         switch(opcaoAdmin) {
-                            case 1: incluirLinha(); break;
-                            case 2: incluirParada(); break;
-                            case 3: alterarParada(); break;
-                            case 4: excluirParada(); break;
-                            case 5: excluirLinha(); break;
-                            case 0: break;
-                            default: printf("\nOpção inválida!\n");
+                            case 1: //incluirLinha();
+                            break;
+                            case 2: //incluirParada();
+                            break;
+                            case 3: //alterarParada();
+                            break;
+                            case 4: //excluirParada();
+                            break;
+                            case 5: //excluirLinha();
+                            break;
+                            case 0: 
+                            break;
+                            default: printf("\nOpção invalida!\n");
                         }
 
                     } while (opcaoAdmin != 0);
                 }
                 else {
-                    printf("\nSenha incorreta!\n");
+                    printf("\nSenha incorreta! Acesso negado.\n");
                 }
 
             break;
@@ -84,7 +84,7 @@ int main() {
             break;
 
             default:
-                printf("\nOpção inválida!\n");
+                printf("\nOpcao invalida!\n");
         }
 
     } while(opcaoPrincipal != 0);
