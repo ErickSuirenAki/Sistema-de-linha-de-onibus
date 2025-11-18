@@ -1,4 +1,4 @@
-#include "paradas.h"
+#include "parada.h"
 
 typedef struct Linha {
     int numero;
