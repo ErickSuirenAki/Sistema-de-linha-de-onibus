@@ -86,3 +86,40 @@ void mostrarLinhas(ListaLinhas *L){
     }
 }
 
+void inserirParadaNaLinha(ListaLinhas *L){
+    int numero, pos;
+    tipoParada p;
+
+    printf("\nDigite o numero da linha: ");
+    scanf("%d", &numero);
+
+    Linha *ln = buscarLinha(L, numero);
+    if(ln == NULL){
+        printf("\nLinha não encontrada!\n");
+        return;
+    }
+    if(ln->paradas == NULL){
+    ln->paradas = criarListaParadas();
+}
+    printf("Local da parada: ");
+    fflush(stdin);
+    gets(p.local);
+
+    printf("Horario de saída (HH:MM): ");
+    fflush(stdin);
+    gets(p.saida);
+
+    printf("Horario de chegada (HH:MM): ");
+    fflush(stdin);
+    gets(p.chegada);
+
+    printf("Posição para inserir (1, 2, 3...): ");
+    scanf("%d", &pos);
+
+    if(inserirParadaEmPosicao(ln->paradas, p, pos)){
+        printf("\nParada inserida com sucesso!\n");
+    } else {
+        printf("\nErro ao inserir parada!\n");
+    }
+}
+

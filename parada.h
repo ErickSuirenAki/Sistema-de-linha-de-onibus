@@ -25,3 +25,6 @@ void destruirListaParadas(ListaP *lp);
 No* buscarDestinoHorario(ListaP *lp, char destino[], char horario[]);
 No* acharHorarioSaida(No* destinoEncontrado);
 
+
+
+

@@ -77,23 +77,20 @@ int main() {
                                 break;
 
                             case 2:
-
-                                mostrarLinhas(&L);
-                                printf("\nDigite o numero da linha para inserir a parada: ");
-                                scanf("%d", &numero);
-                               
+                                inserirParadaNaLinha(&L);
                                 break;
 
                             case 3:
                                 mostrarLinhas(&L);
-                                printf("\nDigite o numero da linha para inserir a parada: ");
+                                printf("\nDigite o numero da linha para alterar a parada: ");
                                 scanf("%d", &numero); 
                                 break;
 
                             case 4:
                                 mostrarLinhas(&L);
-                                printf("\nDigite o numero da linha para inserir a parada: ");
+                                printf("\nDigite o numero da linha para excluir a parada: ");
                                 scanf("%d", &numero);
+                                
                                 break;
 
                             case 5:

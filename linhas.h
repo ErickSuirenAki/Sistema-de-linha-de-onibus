@@ -18,3 +18,4 @@ int inserirInicio(ListaLinhas *L, int numero, char companhia[]); //ok
 Linha* buscarLinha(ListaLinhas *L, int numero); //ok
 int removerLinha(ListaLinhas *L, int numero); //ok
 void mostrarLinhas(ListaLinhas *L);
+void inserirParadaNaLinha(ListaLinhas *L);
