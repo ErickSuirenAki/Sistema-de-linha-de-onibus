@@ -13,7 +13,7 @@ Desenvolvido por:
 #include <stdlib.h>
 #include <string.h>
 
-
+//criação e manipulação da lista de paradas
 ListaP* criarListaParadas(){
     ListaP* lp = (ListaP*) malloc(sizeof(ListaP));
     if(lp != NULL)
@@ -21,12 +21,14 @@ ListaP* criarListaParadas(){
     return lp;
 }
 
+//verifica se a lista de paradas está vazia
 int listaParadasVazia(ListaP *lp){
     if(lp == NULL) return 1;       
     if(lp->head == NULL) return 1;
     return 0;        
 }
 
+//função que retorna o tamanho da lista de paradas
 int tamanhoListaParadas(ListaP *lp){
     if(lp == NULL) return 0;
     if(listaParadasVazia(lp)) return 0;
@@ -34,7 +36,7 @@ int tamanhoListaParadas(ListaP *lp){
     No *aux = lp->head;
     int tamanho = 1;
 
-    while(aux->prox != lp->head){
+    while(aux->prox != lp->head){ // percorre até voltar ao head
         tamanho++;
         aux = aux->prox;
     }
@@ -42,6 +44,8 @@ int tamanhoListaParadas(ListaP *lp){
     return tamanho;
 }
 
+
+//insere uma nova parada em uma posição específica da lista
 int inserirParadaEmPosicao(ListaP *lp, tipoParada parada, int posicao) {
     if(lp == NULL) return 0;
 
@@ -103,6 +107,8 @@ int inserirParadaEmPosicao(ListaP *lp, tipoParada parada, int posicao) {
     return 1;
 }
 
+
+//altera os dados de uma parada em uma posição específica da lista
 int alterarParadaPos(ListaP *lp, int pos, tipoParada novaParada){
     if(lp == NULL) return 0;
     if(listaParadasVazia(lp)) return 0;
@@ -110,14 +116,14 @@ int alterarParadaPos(ListaP *lp, int pos, tipoParada novaParada){
     int tamanho = tamanhoListaParadas(lp);
     if(pos < 1 || pos > tamanho) return 0;
 
-    No *atual = lp->head;
+    No *atual = lp->head; 
     int i = 1;
 
     while(i < pos){
         atual = atual->prox;
         i++;
     }
-
+    // atual agora aponta para o nó na posição 'pos'
     strcpy(atual->infos.local,   novaParada.local);
     strcpy(atual->infos.chegada, novaParada.chegada);
     strcpy(atual->infos.saida,   novaParada.saida);
@@ -125,6 +131,7 @@ int alterarParadaPos(ListaP *lp, int pos, tipoParada novaParada){
     return 1;
 }
 
+//remove uma parada em uma posição específica da lista
 int removerParadaPos(ListaP *lp, int pos){
     if(lp == NULL) return 0;
     if(listaParadasVazia(lp)) return 0;
@@ -135,7 +142,7 @@ int removerParadaPos(ListaP *lp, int pos){
     No *atual = lp->head;
     int i = 1;
 
-    //n� unico, quando removo, lista fica nula
+    //no unico, quando removo, lista fica nula
     if(atual->prox == atual){
         free(atual);
         lp->head = NULL;
@@ -159,6 +166,8 @@ int removerParadaPos(ListaP *lp, int pos){
     return 1;
 }
 
+
+//exibe todas as paradas da lista
 void exibirParadas(ListaP *lp){
     if(lp == NULL){
         printf("\nLista inexistente.\n");
@@ -185,14 +194,16 @@ void exibirParadas(ListaP *lp){
     printf("\n-------------------------\n");
 }
 
+//busca uma parada pelo local
+
 No* buscaParadaLocal(ListaP *lp, char destino[]){
     if(lp == NULL) return NULL;
     if(listaParadasVazia(lp)) return NULL;
 
-    No *atual = lp->head;
+    No *atual = lp->head; 
 
     do{
-        if(strcmp(atual->infos.local, destino) == 0){
+        if(strcmp(atual->infos.local, destino) == 0){ 
             return atual;
         }
         atual = atual->prox;
@@ -201,6 +212,8 @@ No* buscaParadaLocal(ListaP *lp, char destino[]){
     return NULL;
 }
 
+
+//destrói a lista de paradas, liberando toda a memória alocada
 void destruirListaParadas(ListaP *lp) {
     if(lp == NULL) return;
 
@@ -213,23 +226,23 @@ void destruirListaParadas(ListaP *lp) {
 
     do {
         prox = atual->prox;
-        free(atual);
+        free(atual); 
         atual = prox;
-    } while (atual != lp->head);
+    } while (atual != lp->head); // percorre toda a lista circular
 
     lp->head = NULL;
 }
 
 
-
+//busca uma parada pelo local e horário mínimo de chegada
 No* buscarDestinoHorario(ListaP *lp, char destino[], char horario[]){
     if(lp == NULL || lp->head == NULL) return NULL;
 
     No *atual = lp->head;
 
     do{
-        if(strcmp(atual->infos.local, destino) == 0){
-            if(strcmp(atual->infos.chegada, horario) >= 0){
+        if(strcmp(atual->infos.local, destino) == 0){ // local compatível
+            if(strcmp(atual->infos.chegada, horario) >= 0){ // horário compatível
                 return atual;
             }
         }
@@ -238,10 +251,14 @@ No* buscarDestinoHorario(ListaP *lp, char destino[], char horario[]){
 
     return NULL;
 }
+
+//busca a parada anterior ao destino encontrado (horário de saída)
 No* acharHorarioSaida(No* destinoEncontrado){
+    // se não encontrou destino, retorna NULL
     if(destinoEncontrado == NULL){
         return NULL;
     }
+    // retorna o nó anterior ao destino encontrado
     return destinoEncontrado->ant;
 }
 

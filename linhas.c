@@ -330,7 +330,7 @@ void buscarMelhorLinha(ListaLinhas *L, char destino[], char horario[]){
         printf("Linha: %d | Companhia: %s\n", melhorLinha->numero, melhorLinha->companhia);
         printf("Destino encontrado: %s\n", melhorDestino->infos.local);
         printf("Horario de chegada: %s\n", melhorDestino->infos.chegada);
-        
+
         //exibe a parada anterior ao destino
         No *saida = acharHorarioSaida(melhorDestino);
         if(saida != NULL){
