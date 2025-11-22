@@ -62,7 +62,7 @@ int removerLinha(ListaLinhas *L, int numero){
     }
 
     if(atual->paradas != NULL){
-        destruirListasParadas(atual->paradas);
+        destruirListaParadas(atual->paradas);
     }
    
 
@@ -83,40 +83,37 @@ void mostrarLinhas(ListaLinhas *L){
     auxiliar = L->head;
 
     while(auxiliar!= NULL){
-        printf("Numero da linha: %d\n", auxiliar->numero);
-        printf("Companhia: %s\n\n", auxiliar->companhia);
+        printf("\nNumero da linha: %d", auxiliar->numero);
+        printf("\nCompanhia: %s\n\n", auxiliar->companhia);
         auxiliar = auxiliar->proxima;
     }
 }
 
-void inserirParadaNaLinha(ListaLinhas *L){
-    int numero, posicao;
+void inserirParadaNaLinha(ListaLinhas *L, int numero){
+    int posicao;
     tipoParada parada;
-
-    printf("\nDigite o numero da linha: ");
-    scanf("%d", &numero);
 
     Linha *linha = buscarLinha(L, numero);
     if(linha == NULL){
-        printf("\nLinha não encontrada!\n");
+        printf("\nLinha nao encontrada!\n");
         return;
     }
     if(linha->paradas == NULL){
     linha->paradas = criarListaParadas();
 }
-    printf("Local da parada: ");
+    printf("\nLocal da parada: \n");
     fflush(stdin);
     gets(parada.local);
 
-    printf("Horario de saída (HH:MM): ");
+    printf("\nHorario de saida (HH:MM): \n");
     fflush(stdin);
     gets(parada.saida);
 
-    printf("Horario de chegada (HH:MM): ");
+    printf("\nHorario de chegada (HH:MM): \n");
     fflush(stdin);
     gets(parada.chegada);
 
-    printf("Posição para inserir (1, 2, 3...): ");
+    printf("\nPosicao para inserir: \n");
     scanf("%d", &posicao);
 
     if(inserirParadaEmPosicao(linha->paradas, parada, posicao)){
@@ -125,4 +122,96 @@ void inserirParadaNaLinha(ListaLinhas *L){
         printf("\nErro ao inserir parada!\n");
     }
 }
+
+void alterarParadaNaLinha(ListaLinhas *L, int numero){
+    int posicao;
+    tipoParada nova;
+
+    Linha *linha = buscarLinha(L, numero);
+    if(linha == NULL){
+        printf("\nLinha nao encontrada!\n");
+        return;
+    }
+
+    if(linha->paradas == NULL || listaParadasVazia(linha->paradas)){
+        printf("\nEsta linha nao possui paradas!\n");
+        return;
+    }
+
+    exibirParadas(linha->paradas);
+
+    int quantidade = tamanhoListaParadas(linha->paradas);
+
+    do {
+        printf("\nQual parada deseja alterar (1 a %d): ", quantidade);
+        scanf("%d", &posicao);
+        getchar();
+    } while(posicao < 1 || posicao > quantidade);
+
+    printf("\nNovo local: \n");
+    fflush(stdin);
+    gets(nova.local);
+    
+    printf("\nNovo horario de chegada (HH:MM): \n");
+    fflush(stdin);
+    gets(nova.chegada);
+
+    printf("Novo horario de saida (HH:MM): ");
+    fflush(stdin);
+    gets(nova.saida);
+
+    if(alterarParadaPos(linha->paradas, posicao, nova))
+        printf("\nParada alterada com sucesso!\n");
+    else
+        printf("\nErro ao alterar parada!\n");
+}
+
+
+void removerParadaNaLinha(ListaLinhas *L, int numero){
+    int posicao;
+
+    Linha *linha = buscarLinha(L, numero);
+    if(linha == NULL){
+        printf("\nLinha nao encontrada!\n");
+        return;
+    }
+
+    if(linha->paradas == NULL || listaParadasVazia(linha->paradas)){
+        printf("\nEsta linha nao possui paradas!\n");
+        return;
+    }
+
+    exibirParadas(linha->paradas);
+
+    int quantidade = tamanhoListaParadas(linha->paradas);
+
+    do {
+        printf("\nQual parada deseja remover (1 a %d): ", quantidade);
+        scanf("%d", &posicao);
+    } while(posicao < 1 || posicao > quantidade);
+
+    if(removerParadaPos(linha->paradas, posicao))
+        printf("\nParada removida com sucesso!\n");
+    else
+        printf("\nErro ao remover parada!\n");
+}
+
+void mostrarParadasDaLinha(ListaLinhas *L, int numero){
+
+    Linha *linha = buscarLinha(L, numero);
+
+    if(linha == NULL){
+        printf("\nLinha nao encontrada!\n");
+        return;
+    }
+
+    if(linha->paradas == NULL){
+        printf("\nEsta linha ainda nao possui paradas.\n");
+        return;
+    }
+
+    exibirParadas(linha->paradas);
+}
+
+
 

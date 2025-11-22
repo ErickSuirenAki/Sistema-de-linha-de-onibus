@@ -1,6 +1,8 @@
 #include "parada.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 
 ListaP* criarListaParadas(){
     ListaP* lp = (ListaP*) malloc(sizeof(ListaP));

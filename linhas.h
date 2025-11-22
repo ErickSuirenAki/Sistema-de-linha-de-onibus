@@ -3,7 +3,7 @@
 typedef struct Linha {
     int numero;
     char companhia[50];
-    tipoParada *paradas;
+    ListaP *paradas;
     struct Linha *proxima;
 }Linha;
 
@@ -18,4 +18,8 @@ int inserirInicio(ListaLinhas *L, int numero, char companhia[]); //ok
 Linha* buscarLinha(ListaLinhas *L, int numero); //ok
 int removerLinha(ListaLinhas *L, int numero); //ok
 void mostrarLinhas(ListaLinhas *L);
-void inserirParadaNaLinha(ListaLinhas *L);
+void inserirParadaNaLinha(ListaLinhas *L, int numero); //ok
+void alterarParadaNaLinha(ListaLinhas *L, int numero);
+void removerParadaNaLinha(ListaLinhas *L, int numero);
+void mostrarParadasDaLinha(ListaLinhas *L, int numero);
+

@@ -34,7 +34,7 @@ int main() {
                 fflush(stdin);
                 gets(destino);
 
-                printf("Digite o horário aproximado (HH:MM): ");
+                printf("Digite o horario aproximado (HH:MM): ");
                 fflush(stdin);
                 gets(horario);
 
@@ -56,6 +56,7 @@ int main() {
                         printf("\n4 - Excluir parada");
                         printf("\n5 - Excluir linha");
                         printf("\n6 - Mostrar linhas");
+                        printf("\n7 - Mostrar paradas na linha");
                         printf("\n0 - Voltar");
                         printf("\nEscolha sua opcao: ");
 
@@ -77,19 +78,24 @@ int main() {
                                 break;
 
                             case 2:
-                                inserirParadaNaLinha(&L);
+                                mostrarLinhas(&L);
+                                printf("\nDigite o numero da linha para inserir a parada: ");
+                                scanf("%d", &numero); 
+                                inserirParadaNaLinha(&L, numero);
                                 break;
 
                             case 3:
                                 mostrarLinhas(&L);
                                 printf("\nDigite o numero da linha para alterar a parada: ");
                                 scanf("%d", &numero); 
+                                alterarParadaNaLinha(&L, numero);
                                 break;
 
                             case 4:
                                 mostrarLinhas(&L);
                                 printf("\nDigite o numero da linha para excluir a parada: ");
                                 scanf("%d", &numero);
+                                removerParadaNaLinha(&L, numero);
                                 
                                 break;
 
@@ -100,13 +106,24 @@ int main() {
                                 if(removerLinha(&L, numero)){
                                     printf("\nLinha removida com sucesso!");
                                 } else {
-                                    printf("\nErro ao remover linha! Linha nao encontrada.");
+                                    printf("\nErro ao remover linha!");
                                 }
+                                break;
+
+                            case 6:
+                                mostrarLinhas(&L);
+                                break;
+
+                            case 7:
+                                mostrarLinhas(&L);
+                                printf("\nDigite o numero da linha para mostrar as paradas: ");
+                                scanf("%d", &numero);
+                                mostrarParadasDaLinha(&L, numero);
                                 break;
 
                             case 0: 
                             break;
-                            default: printf("\nOpção invalida!\n");
+                            default: printf("\nOpcao invalida!\n");
                         }
 
                     } while (opcaoAdmin != 0);
