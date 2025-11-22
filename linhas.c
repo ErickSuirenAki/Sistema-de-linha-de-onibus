@@ -98,9 +98,14 @@ void inserirParadaNaLinha(ListaLinhas *L, int numero){
         printf("\nLinha nao encontrada!\n");
         return;
     }
+   
     if(linha->paradas == NULL){
-    linha->paradas = criarListaParadas();
-}
+        linha->paradas = criarListaParadas();
+    }
+    else {
+        mostrarParadasDaLinha(L, numero);
+    }
+    
     printf("\nLocal da parada: \n");
     fflush(stdin);
     gets(parada.local);
@@ -115,6 +120,7 @@ void inserirParadaNaLinha(ListaLinhas *L, int numero){
 
     printf("\nPosicao para inserir: \n");
     scanf("%d", &posicao);
+    posicao++;
 
     if(inserirParadaEmPosicao(linha->paradas, parada, posicao)){
         printf("\nParada inserida com sucesso!\n");
