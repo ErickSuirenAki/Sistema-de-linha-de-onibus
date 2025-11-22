@@ -12,7 +12,7 @@ int main() {
 
     int opcaoPrincipal = -1;
     int opcaoAdmin = -1;
-    char destino[50];
+    char destino[40];
     char horario[6];
     char senhaAdmin[30];
     int numero;

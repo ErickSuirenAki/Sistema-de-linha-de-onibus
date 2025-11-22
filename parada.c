@@ -15,51 +15,78 @@ int listaParadasVazia(ListaP *lp){
     return 0;        
 }
 
-int inserirParadaEmPosicao(ListaP *lp, tipoParada p, int posicao) {
+int tamanhoListaParadas(ListaP *lp){
     if(lp == NULL) return 0;
-    No *no = (No*) malloc(sizeof(No));
-    if(no == NULL) return 0;
+    if(listaParadasVazia(lp)) return 0;
 
-    no->infos = p;
+    No *aux = lp->head;
+    int tamanho = 1;
 
-    if(listaParadasVazia(lp)) {
-        lp->head = no;
-        no->prox = no;
-        no->ant = no;
+    while(aux->prox != lp->head){
+        tamanho++;
+        aux = aux->prox;
+    }
+
+    return tamanho;
+}
+
+int inserirParadaEmPosicao(ListaP *lp, tipoParada parada, int posicao) {
+    if(lp == NULL) return 0;
+
+    int tam = tamanhoListaParadas(lp);
+
+    // posição válida: 1 .. tam+1
+    if(posicao < 1 || posicao > tam + 1) {
+        return 0;
+    }
+
+    // criar novo nó
+    No *novo = (No*) malloc(sizeof(No));
+    if(novo == NULL) return 0;
+    novo->infos = parada;
+
+    // caso lista vazia (tam == 0). posicao só pode ser 1 aqui
+    if(tam == 0){
+        novo->prox = novo;
+        novo->ant  = novo;
+        lp->head = novo;
         return 1;
     }
-    // verificar se � uma posi��o v�lida - acho que � melhor no main
-    // tipo exibir quantas paradas tem e suas respectivas posi��es
-    // pergunta qual a posi��o a ser inserida
-    // verifica se ela � v�lida (n�o d� pra adicionar na pos 4 se s� tem 2 paradas, nem se for um valor negativo)
-    No *atual = lp->head;
-    No *ant = NULL;
-    int i = 1;
 
-    while(i < posicao) {
-        ant = atual;
-        atual = atual->prox;
-        i++;
-
-        //pra manter a lista circular, no caso se for igual a cabe�a, voltou pro inicio;
-        if(atual == lp->head) break;
-    }
-
-    //inser��o no in�cio
+    // inserir na primeira posição (antes do head)
     if(posicao == 1) {
         No *ultimo = lp->head->ant;
-        no->prox = lp->head;
-        no->ant = ultimo;
-        ultimo->prox = no;
-        lp->head->ant = no;
-        lp->head = no;
+        novo->prox = lp->head;
+        novo->ant  = ultimo;
+        ultimo->prox = novo;
+        lp->head->ant = novo;
+        lp->head = novo;
         return 1;
     }
 
-    no->prox = atual;
-    no->ant = ant;
-    ant->prox = no;
-    atual->ant = no;
+    // inserir no fim (posicao == tam + 1)
+    if(posicao == tam + 1){
+        No *ultimo = lp->head->ant;
+        novo->prox = lp->head;
+        novo->ant  = ultimo;
+        ultimo->prox = novo;
+        lp->head->ant = novo;
+        return 1;
+    }
+
+    // inserir no meio (1 < posicao <= tam)
+    No *atual = lp->head;
+    int i = 1;
+    while(i < posicao){
+        atual = atual->prox;
+        i++;
+    }
+    // agora 'atual' é o nó que estava na posição 'posicao'
+    No *ant = atual->ant;
+    novo->prox = atual;
+    novo->ant  = ant;
+    ant->prox = novo;
+    atual->ant = novo;
 
     return 1;
 }
@@ -67,6 +94,9 @@ int inserirParadaEmPosicao(ListaP *lp, tipoParada p, int posicao) {
 int alterarParadaPos(ListaP *lp, int pos, tipoParada novaParada){
     if(lp == NULL) return 0;
     if(listaParadasVazia(lp)) return 0;
+
+    int tamanho = tamanhoListaParadas(lp);
+    if(pos < 1 || pos > tamanho) return 0;
 
     No *atual = lp->head;
     int i = 1;
@@ -86,6 +116,9 @@ int alterarParadaPos(ListaP *lp, int pos, tipoParada novaParada){
 int removerParadaPos(ListaP *lp, int pos){
     if(lp == NULL) return 0;
     if(listaParadasVazia(lp)) return 0;
+
+    int tamanho = tamanhoListaParadas(lp);
+    if(pos < 1 || pos > tamanho) return 0;
 
     No *atual = lp->head;
     int i = 1;
@@ -157,6 +190,8 @@ No* buscaParadaLocal(ListaP *lp, char destino[]){
 }
 
 void destruirListaParadas(ListaP *lp) {
+    if(lp == NULL) return;
+
     if (lp->head == NULL) {
         return;
     }
@@ -173,8 +208,31 @@ void destruirListaParadas(ListaP *lp) {
     lp->head = NULL;
 }
 
-No* buscarDestinoHorario(ListaP *lp, char destino[], char horario[]){}
-No* acharHorarioSaida(No* destinoEncontrado){}
+
+
+No* buscarDestinoHorario(ListaP *lp, char destino[], char horario[]){
+    if(lp == NULL || lp->head == NULL) return NULL;
+
+    No *atual = lp->head;
+
+    do{
+        if(strcmp(atual->infos.local, destino) == 0){
+            if(strcmp(atual->infos.chegada, horario) >= 0){
+                return atual;
+            }
+        }
+        atual = atual->prox;
+    }while(atual != lp->head);
+
+    return NULL;
+}
+No* acharHorarioSaida(No* destinoEncontrado){
+    if(destinoEncontrado == NULL){
+        return NULL;
+    }
+    return destinoEncontrado->ant;
+}
+
 
 
 
