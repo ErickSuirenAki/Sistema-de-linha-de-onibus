@@ -17,9 +17,11 @@ void criarListaLinhas(ListaLinhas *L); //ok
 int inserirInicio(ListaLinhas *L, int numero, char companhia[]); //ok
 Linha* buscarLinha(ListaLinhas *L, int numero); //ok
 int removerLinha(ListaLinhas *L, int numero); //ok
-void mostrarLinhas(ListaLinhas *L);
+void mostrarLinhas(ListaLinhas *L); //ok
 void inserirParadaNaLinha(ListaLinhas *L, int numero); //ok
-void alterarParadaNaLinha(ListaLinhas *L, int numero);
-void removerParadaNaLinha(ListaLinhas *L, int numero);
-void mostrarParadasDaLinha(ListaLinhas *L, int numero);
+void alterarParadaNaLinha(ListaLinhas *L, int numero); //ok
+void removerParadaNaLinha(ListaLinhas *L, int numero); //ok
+void mostrarParadasDaLinha(ListaLinhas *L, int numero); //ok
+void buscarMelhorLinha(ListaLinhas *L, char destino[], char horario[]);
+
 

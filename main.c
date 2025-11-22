@@ -37,8 +37,9 @@ int main() {
                 printf("Digite o horario aproximado (HH:MM): ");
                 fflush(stdin);
                 gets(horario);
+            
+                buscarMelhorLinha(&L, destino, horario);
 
-                //buscarLinha(&L, destino, horario);
             break;
 
             case 2:

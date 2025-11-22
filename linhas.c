@@ -219,5 +219,50 @@ void mostrarParadasDaLinha(ListaLinhas *L, int numero){
     exibirParadas(linha->paradas);
 }
 
+void buscarMelhorLinha(ListaLinhas *L, char destino[], char horario[]){
+    if(L->head == NULL){
+        printf("\nNenhuma linha encontrada!\n");
+        return;
+    }
 
+    Linha *atualLinha = L->head;
+    Linha *melhorLinha = NULL;
+    No *melhorDestino = NULL;
 
+    while(atualLinha != NULL){
+        
+        if(atualLinha->paradas != NULL){   
+            No *destinoHorario = buscarDestinoHorario(atualLinha->paradas, destino, horario);
+
+            if(destinoHorario != NULL){
+                if(melhorLinha == NULL){
+                    melhorLinha = atualLinha;
+                    melhorDestino = destinoHorario;  
+                }
+                else{
+                    if(strcmp(destinoHorario->infos.chegada, melhorDestino->infos.chegada) < 0){
+                        melhorLinha = atualLinha;
+                        melhorDestino = destinoHorario;  
+                    }
+                }
+            }
+        }
+
+        atualLinha = atualLinha->proxima;
+    }
+
+    if(melhorLinha == NULL){
+        printf("\nNenhuma linha atende esse destino e horario\n");
+    } else {
+        printf("\nMELHOR LINHA ENCONTRADA\n");
+        printf("Linha: %d | Companhia: %s\n", melhorLinha->numero, melhorLinha->companhia);
+        printf("Destino encontrado: %s\n", melhorDestino->infos.local);
+        printf("Horario de chegada: %s\n", melhorDestino->infos.chegada);
+
+        No *saida = acharHorarioSaida(melhorDestino);
+        if(saida != NULL){
+            printf("ultima parada antes do destino: %s\n", saida->infos.local);
+            printf("Horario de saida anterior: %s\n", saida->infos.saida);
+        }
+    }
+}
