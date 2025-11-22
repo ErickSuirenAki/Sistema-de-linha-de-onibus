@@ -1,3 +1,13 @@
+/*
+Trabalho de Estrutura de Dados 1
+2º período de Ciência da Computação
+Professora: Carolina Yukari Veludo Watanabe
+
+Desenvolvido por:
+-Erick Batista dos Santos
+-Anna Julia Oliveira de Sousa
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,7 +16,7 @@
 
 
 int main() {
-
+    // criacao da lista de linhas (TAD principal do sistema)
     ListaLinhas L;
     criarListaLinhas(&L);
 
@@ -18,6 +28,7 @@ int main() {
     int numero;
     char companhia[50];
 
+     // loop principal do programa
     do {
         printf("\n===== MENU PRINCIPAL =====");
         printf("\n1 - Procurar linha de onibus");
@@ -29,6 +40,7 @@ int main() {
 
         switch(opcaoPrincipal) {
 
+            // OPÇÃO 1:busca da melhor linha para o usuario
             case 1:
                 printf("\nDigite o destino da sua viagem: ");
                 fflush(stdin);
@@ -37,18 +49,22 @@ int main() {
                 printf("Digite o horario aproximado (HH:MM): ");
                 fflush(stdin);
                 gets(horario);
-            
+
+                // realiza busca na estrutura de linhas usando TAD Paradas
                 buscarMelhorLinha(&L, destino, horario);
 
-            break;
+                break;
 
+            // OPÇÃO 2: menu do administrador
             case 2:
                 printf("\nDigite a senha de administrador: ");
                 fflush(stdin);
                 gets(senhaAdmin);
 
+                // verificacao senha do administrador (TAD linhas)
                 if(verificaAdmin(senhaAdmin)) {
 
+                    // loop do menu administrador
                     do {
                         printf("\n===== MENU ADMIN =====");
                         printf("\n1 - Inserir nova linha");
@@ -65,6 +81,7 @@ int main() {
                         getchar();
 
                         switch(opcaoAdmin) {
+                            // inserir uma nova linha no sistema
                             case 1:
                                 printf("\nDigite o numero da linha: ");
                                 scanf("%d", &numero);
@@ -77,7 +94,8 @@ int main() {
                                     printf("\nErro ao inserir linha!");
                                 }
                                 break;
-
+                            
+                            // inserir uma parada em uma linha existente
                             case 2:
                                 mostrarLinhas(&L);
                                 printf("\nDigite o numero da linha para inserir a parada: ");
@@ -85,21 +103,22 @@ int main() {
                                 inserirParadaNaLinha(&L, numero);
                                 break;
 
+                            // alterar uma parada em uma linha existente
                             case 3:
                                 mostrarLinhas(&L);
                                 printf("\nDigite o numero da linha para alterar a parada: ");
                                 scanf("%d", &numero); 
                                 alterarParadaNaLinha(&L, numero);
                                 break;
-
+                        
+                            // remover uma parada em uma linha existente
                             case 4:
                                 mostrarLinhas(&L);
                                 printf("\nDigite o numero da linha para excluir a parada: ");
                                 scanf("%d", &numero);
                                 removerParadaNaLinha(&L, numero);
-                                
                                 break;
-
+                            // remover uma linha existente
                             case 5:
                                 mostrarLinhas(&L);
                                 printf("\nDigite o numero da linha a ser excluida: ");
@@ -111,10 +130,12 @@ int main() {
                                 }
                                 break;
 
+                            // mostrar todas as linhas cadastradas
                             case 6:
                                 mostrarLinhas(&L);
                                 break;
 
+                            // mostrar todas as paradas de uma linha cadastrada
                             case 7:
                                 mostrarLinhas(&L);
                                 printf("\nDigite o numero da linha para mostrar as paradas: ");

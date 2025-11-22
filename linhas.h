@@ -1,3 +1,13 @@
+/*
+Trabalho de Estrutura de Dados 1
+2º período de Ciência da Computação
+Professora: Carolina Yukari Veludo Watanabe
+
+Desenvolvido por:
+-Erick Batista dos Santos
+-Anna Julia Oliveira de Sousa
+*/
+
 #include "parada.h"
 
 typedef struct Linha {
