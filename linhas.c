@@ -130,6 +130,11 @@ void mostrarLinhas(ListaLinhas *L){
 
     auxiliar = L->head;
 
+    if(auxiliar == NULL){
+        printf("\nNenhuma linha cadastrada.\n");
+        return;
+    }
+
     while(auxiliar!= NULL){
         printf("\nNumero da linha: %d", auxiliar->numero);
         printf("\nCompanhia: %s\n\n", auxiliar->companhia);
